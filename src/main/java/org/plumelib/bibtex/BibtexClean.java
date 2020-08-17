@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.regex.Pattern;
+import org.checkerframework.checker.determinism.qual.Det;
 import org.plumelib.util.EntryReader;
 import org.plumelib.util.UtilPlume;
 
@@ -58,7 +59,7 @@ public final class BibtexClean {
       // remain in the file.
       outFile.delete();
       try (PrintWriter out = new PrintWriter(UtilPlume.bufferedFileWriter(outFile.toString()));
-          EntryReader er = new EntryReader(filename)) {
+          @Det EntryReader er = new EntryReader(filename)) {
         for (String line : er) {
           if (line.equals("") || line.startsWith("%")) {
             out.println(line);
